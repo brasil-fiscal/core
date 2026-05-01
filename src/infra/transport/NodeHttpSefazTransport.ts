@@ -27,7 +27,7 @@ export class NodeHttpSefazTransport implements SefazTransport {
           path: url.pathname + url.search,
           method: 'POST',
           headers: {
-            'Content-Type': `application/soap+xml; charset=utf-8; action="${req.soapAction}"`,
+            'Content-Type': 'text/xml; charset=UTF-8',
             'SOAPAction': req.soapAction,
             'Content-Length': utf8Buffer.byteLength
           },
