@@ -16,8 +16,11 @@ export class NodeHttpSefazTransport implements SefazTransport {
     return new Promise((resolve, reject) => {
       const url = new URL(req.url);
 
-      // Garante UTF-8 limpo: remove BOM e re-encoda via Buffer
-      const cleanXml = req.xml.replace(/^\uFEFF/, '');
+      // Garante UTF-8 limpo: normaliza Unicode (NFC), remove BOM e controles
+      const cleanXml = req.xml
+        .normalize('NFC')
+        .replace(/\uFEFF/g, '')
+        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '');
       const utf8Buffer = Buffer.from(cleanXml, 'utf-8');
 
       const httpReq = httpsRequest(
@@ -27,7 +30,7 @@ export class NodeHttpSefazTransport implements SefazTransport {
           path: url.pathname + url.search,
           method: 'POST',
           headers: {
-            'Content-Type': 'text/xml; charset=UTF-8',
+            'Content-Type': `application/soap+xml; charset=UTF-8; action="${req.soapAction}"`,
             'SOAPAction': req.soapAction,
             'Content-Length': utf8Buffer.byteLength
           },
