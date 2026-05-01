@@ -1,0 +1,54 @@
+{
+  "name": "@brasil-fiscal/core",
+  "version": "0.1.0",
+  "description": "Infraestrutura compartilhada para documentos fiscais eletronicos brasileiros (NFe, CTe, MDFe). Certificado digital, assinatura XML, transporte mTLS, helpers.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "tsx --test tests/**/*.spec.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "fiscal",
+    "brasil",
+    "nfe",
+    "cte",
+    "mdfe",
+    "sefaz",
+    "certificado-digital",
+    "xml",
+    "typescript"
+  ],
+  "author": "Raphael Serafim",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brasil-fiscal/core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brasil-fiscal/core/issues"
+  },
+  "homepage": "https://github.com/brasil-fiscal/core#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.2",
+    "@typescript-eslint/parser": "^8.58.2",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
+    "tsc-alias": "^1.8.16",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {}
+}
