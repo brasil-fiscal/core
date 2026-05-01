@@ -218,6 +218,9 @@ Contribuicoes sao bem-vindas! Veja [CONTRIBUTING.md](CONTRIBUTING.md).
 | [@brasil-fiscal/nfe](https://github.com/brasil-fiscal/nfe) | Estavel | NFe e NFC-e |
 | [@brasil-fiscal/cte](https://github.com/brasil-fiscal/cte) | Em desenvolvimento | CTe |
 | [@brasil-fiscal/mdfe](https://github.com/brasil-fiscal/mdfe) | Em desenvolvimento | MDFe |
+| [@brasil-fiscal/sped-fiscal](https://github.com/brasil-fiscal/sped-fiscal) | Em desenvolvimento | EFD ICMS/IPI (SPED Fiscal) |
+| [@brasil-fiscal/sped-contribuicoes](https://github.com/brasil-fiscal/sped-contribuicoes) | Em desenvolvimento | EFD Contribuicoes (PIS/COFINS) |
+| [@brasil-fiscal/sintegra](https://github.com/brasil-fiscal/sintegra) | Em desenvolvimento | SINTEGRA |
 
 ## Licenca
 
