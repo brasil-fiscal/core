@@ -59,3 +59,12 @@ export function formatDate(date: Date, utcOffset: string = '-03:00'): string {
 export function padLeft(value: number | string, length: number): string {
   return String(value).padStart(length, '0');
 }
+
+/**
+ * Remove acentos e diacriticos de uma string via Unicode NFD normalization.
+ * Necessario para NFC-e: a SEFAZ de alguns estados (ex: MT) rejeita caracteres
+ * acentuados no XML com erro 402 "codificacao diferente de UTF-8".
+ */
+export function stripAccents(value: string): string {
+  return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}

@@ -19,6 +19,7 @@ export { canonicalize } from './infra/xml/canonicalize';
 export {
   escapeXml,
   sanitizeXmlChars,
+  stripAccents,
   tag,
   tagGroup,
   formatNumber,
