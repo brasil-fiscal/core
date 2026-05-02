@@ -16,11 +16,12 @@ export class NodeHttpSefazTransport implements SefazTransport {
     return new Promise((resolve, reject) => {
       const url = new URL(req.url);
 
-      // Garante UTF-8 limpo: normaliza Unicode (NFC), remove BOM e controles
+      // Garante UTF-8 limpo: normaliza Unicode (NFC), remove BOM e chars invalidos em XML 1.0
       const cleanXml = req.xml
         .normalize('NFC')
         .replace(/\uFEFF/g, '')
-        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '');
+        // eslint-disable-next-line no-control-regex
+        .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x80-\x9F\uFFFE\uFFFF]/g, '');
       const utf8Buffer = Buffer.from(cleanXml, 'utf-8');
 
       const httpReq = httpsRequest(

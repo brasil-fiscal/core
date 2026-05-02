@@ -4,12 +4,22 @@
  */
 
 export function escapeXml(value: string): string {
-  return value
+  return sanitizeXmlChars(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
+}
+
+/**
+ * Remove caracteres invalidos em XML 1.0.
+ * Permitidos: #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+ * Isso elimina C0 controls (exceto tab/LF/CR), DEL, C1 controls (U+0080-009F),
+ * e os codepoints U+FFFE/U+FFFF que causam rejeicao 402 na SEFAZ.
+ */
+export function sanitizeXmlChars(value: string): string {
+  return value.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F\x80-\x9F\uFFFE\uFFFF]/g, '');
 }
 
 export function tag(name: string, value: string | number | undefined, attrs?: string): string {

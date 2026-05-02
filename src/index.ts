@@ -18,6 +18,7 @@ export type { SignableElementConfig } from './infra/xml/DefaultXmlSigner';
 export { canonicalize } from './infra/xml/canonicalize';
 export {
   escapeXml,
+  sanitizeXmlChars,
   tag,
   tagGroup,
   formatNumber,
