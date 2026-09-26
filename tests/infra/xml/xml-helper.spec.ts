@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { escapeXml, sanitizeXmlChars } from '@core/infra/xml/xml-helper';
+import { escapeXml, sanitizeXmlChars, formatDateOnly } from '@core/infra/xml/xml-helper';
 
 describe('sanitizeXmlChars', () => {
   it('deve preservar caracteres validos em XML 1.0', () => {
@@ -45,5 +45,20 @@ describe('escapeXml', () => {
 
   it('deve escapar todos os 5 caracteres especiais XML', () => {
     assert.equal(escapeXml('<tag attr="val" & \'x\'>'), '&lt;tag attr=&quot;val&quot; &amp; &apos;x&apos;&gt;');
+  });
+});
+
+describe('formatDateOnly', () => {
+  it('deve formatar como AAAA-MM-DD', () => {
+    assert.equal(formatDateOnly(new Date('2026-04-28T10:00:00')), '2026-04-28');
+  });
+
+  it('deve usar a data local, sem deslocar o dia', () => {
+    // Meia-noite local: com getters UTC o dia voltaria para 27 em fusos negativos.
+    assert.equal(formatDateOnly(new Date('2026-04-28T00:00:00')), '2026-04-28');
+  });
+
+  it('deve preencher mes e dia com zero a esquerda', () => {
+    assert.equal(formatDateOnly(new Date('2026-01-05T12:00:00')), '2026-01-05');
   });
 });

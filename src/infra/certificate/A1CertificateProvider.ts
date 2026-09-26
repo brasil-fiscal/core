@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { X509Certificate } from 'node:crypto';
 import { CertificateProvider, CertificateData } from '@core/contracts/CertificateProvider';
 import { CertificateError } from '@core/shared/errors/CertificateError';
+import { parseCertificateInfo, extractCertPem } from './cert-info';
 
 export class A1CertificateProvider implements CertificateProvider {
   constructor(
@@ -28,7 +29,8 @@ export class A1CertificateProvider implements CertificateProvider {
         password: this.password,
         notAfter,
         privateKey,
-        certPem
+        certPem,
+        info: parseCertificateInfo(certPem)
       };
     } catch (error) {
       if (error instanceof CertificateError) throw error;
@@ -60,20 +62,6 @@ export class A1CertificateProvider implements CertificateProvider {
   }
 
   private extractCertificate(): string {
-    const output = execFileSync(
-      'openssl',
-      ['pkcs12', '-clcerts', '-nokeys', '-passin', `pass:${this.password}`],
-      { input: this.pfx, stdio: ['pipe', 'pipe', 'pipe'] }
-    ).toString();
-
-    const match = output.match(
-      /-----BEGIN CERTIFICATE-----[\s\S]*?-----END CERTIFICATE-----/
-    );
-
-    if (!match) {
-      throw new CertificateError('Certificado nao encontrado no arquivo PFX');
-    }
-
-    return match[0];
+    return extractCertPem(this.pfx, this.password);
   }
 }

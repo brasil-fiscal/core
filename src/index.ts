@@ -1,7 +1,8 @@
 // Contracts
 export type {
   CertificateProvider,
-  CertificateData
+  CertificateData,
+  CertificateInfo
 } from './contracts/CertificateProvider';
 export type { SefazTransport, SefazRequest, SefazResponse } from './contracts/SefazTransport';
 export type { XmlSigner } from './contracts/XmlSigner';
@@ -13,6 +14,7 @@ export type {
 
 // Infrastructure
 export { A1CertificateProvider } from './infra/certificate/A1CertificateProvider';
+export { certInfo, parseCertificateInfo, extractCertPem } from './infra/certificate/cert-info';
 export { DefaultXmlSigner } from './infra/xml/DefaultXmlSigner';
 export type { SignableElementConfig } from './infra/xml/DefaultXmlSigner';
 export { canonicalize } from './infra/xml/canonicalize';
@@ -24,6 +26,7 @@ export {
   tagGroup,
   formatNumber,
   formatDate,
+  formatDateOnly,
   padLeft
 } from './infra/xml/xml-helper';
 export { NodeHttpSefazTransport } from './infra/transport/NodeHttpSefazTransport';

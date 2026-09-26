@@ -56,6 +56,21 @@ export function formatDate(date: Date, utcOffset: string = '-03:00'): string {
   return `${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}${utcOffset}`;
 }
 
+/**
+ * Formata uma data sem hora (tipo TData do leiaute: AAAA-MM-DD), como exigido
+ * por `dPag`, `dVenc` e afins.
+ *
+ * Usa os componentes locais da data — `new Date('2026-04-28T00:00:00')` vira
+ * `2026-04-28` no fuso da maquina, sem o deslocamento de dia que o UTC causaria.
+ */
+export function formatDateOnly(date: Date): string {
+  const yyyy = date.getFullYear();
+  const MM = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+
+  return `${yyyy}-${MM}-${dd}`;
+}
+
 export function padLeft(value: number | string, length: number): string {
   return String(value).padStart(length, '0');
 }
